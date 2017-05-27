@@ -1,41 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.World.Physics;
 
 namespace Assets.Scripts.World.Characters
 {
-    public class Player : MonoBehaviour
+    public class Player : PhysicsObject
     {
-        public float m_Speed = 10;
-        private Rigidbody2D rb2d;
-        private SpriteRenderer m_Sprite;
+        public float m_MaxSpeed = 7f;
+
+        private SpriteRenderer m_SpriteRenderer;
+        private Animator m_Animator;
 
         private void Awake()
         {
-            rb2d = GetComponent<Rigidbody2D>();
-            m_Sprite = GetComponent<SpriteRenderer>();
+            m_SpriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        // Use this for initialization
-        void Start()
+        protected override void ComputeVelocity()
         {
+            Vector2 move = Vector2.zero;
+            move.x = Input.GetAxis("Horizontal");
 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            float horizontal = Input.GetAxis("Horizontal");
-            if (horizontal != 0)
+            bool flipSprite = (m_SpriteRenderer.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
+            if (flipSprite)
             {
-                Move();
+                m_SpriteRenderer.flipX = !m_SpriteRenderer.flipX;
             }
-        }
 
-        public void Move()
-        {
-            Debug.Log("Moving");
-            rb2d.velocity = new Vector2(m_Speed, 0);
+            m_TargetVelocity = move * m_MaxSpeed;
         }
     }
 }
