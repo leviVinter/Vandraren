@@ -46,15 +46,5 @@ namespace Vandraren.World.Characters
             LayerMask layer = gameObject.layer;
             _Physics = new PhysicsController(rigidbody, layer);
         }
-
-        private void MovePlayer()
-        {
-            _Animator.SetBool("Walking", true);
-        }
-
-        private void StopPlayer()
-        {
-            _Animator.SetBool("Walking", false);
-        }
     }
 }

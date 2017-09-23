@@ -10,14 +10,14 @@ namespace Vandraren.World.Physics
         public float _MinGroundNormalY = 0.65f;
 
         private Rigidbody2D _Rigidbody;
-        private Vector2 _Velocity;
+        private Vector2 _Velocity = Vector2.zero;
         private ContactFilter2D _ContactFilter;
         private RaycastHit2D[] _HitBuffer = new RaycastHit2D[16];
         private List<RaycastHit2D> _HitBufferList = new List<RaycastHit2D>(16);
         private Vector2 _TargetVelocity;
-        private bool _Grounded;
-        private Vector2 _GroundNormal;
-        private float _MaxSpeed;
+        private bool _Grounded = false;
+        private Vector2 _GroundNormal = Vector2.zero;
+        private float _MaxSpeed = 7.0f;
 
         private const float _MinMoveDistance = 0.001f;
         private const float _ShellRadius = 0.01f;
