@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Scripts.World.Physics;
+using Vandraren.World.Physics;
+using Vandraren.Inputs;
 
-namespace Assets.Scripts.World.Characters
+namespace Vandraren.World.Characters
 {
     public class Player : PhysicsObject
     {
