@@ -38,6 +38,7 @@ namespace Vandraren.Inputs
             CheckButtonsDown();
             CheckButtonsPressed();
             CheckButtonsUp();
+            CheckAxis();
         }
 
         /// <summary>
