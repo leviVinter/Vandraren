@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.World.Physics
+namespace Vandraren.World.Physics
 {
     public class PhysicsObject : MonoBehaviour
     {
