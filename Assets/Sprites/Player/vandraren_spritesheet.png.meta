@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c5a028239416ed04ba26cc09ccd7789b
-timeCreated: 1506167368
+timeCreated: 1506176273
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -95,7 +95,7 @@ TextureImporter:
       name: vandraren_spritesheet_1
       rect:
         serializedVersion: 2
-        x: 111
+        x: 112
         y: 3
         width: 112
         height: 253
@@ -108,10 +108,10 @@ TextureImporter:
       name: vandraren_spritesheet_2
       rect:
         serializedVersion: 2
-        x: 225
-        y: 4
-        width: 116
-        height: 252
+        x: 224
+        y: 3
+        width: 112
+        height: 253
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,10 +121,10 @@ TextureImporter:
       name: vandraren_spritesheet_3
       rect:
         serializedVersion: 2
-        x: 338
-        y: 4
-        width: 107
-        height: 252
+        x: 336
+        y: 3
+        width: 112
+        height: 253
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,9 +134,9 @@ TextureImporter:
       name: vandraren_spritesheet_4
       rect:
         serializedVersion: 2
-        x: 449
+        x: 448
         y: 3
-        width: 108
+        width: 112
         height: 253
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -147,9 +147,9 @@ TextureImporter:
       name: vandraren_spritesheet_5
       rect:
         serializedVersion: 2
-        x: 545
+        x: 560
         y: 3
-        width: 134
+        width: 112
         height: 253
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -161,9 +161,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 672
-        y: 4
-        width: 120
-        height: 252
+        y: 3
+        width: 112
+        height: 253
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,10 +173,10 @@ TextureImporter:
       name: vandraren_spritesheet_7
       rect:
         serializedVersion: 2
-        x: 789
-        y: 5
-        width: 115
-        height: 251
+        x: 784
+        y: 3
+        width: 112
+        height: 253
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,7 +188,7 @@ TextureImporter:
         serializedVersion: 2
         x: 896
         y: 3
-        width: 128
+        width: 112
         height: 253
       alignment: 0
       pivot: {x: 0, y: 0}
