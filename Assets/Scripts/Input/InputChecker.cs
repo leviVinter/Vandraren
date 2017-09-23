@@ -32,7 +32,7 @@ namespace Vandraren.Inputs
             CheckButtonsUp();
         }
 
-        public void CheckButtonsDown()
+        private void CheckButtonsDown()
         {
             foreach (KeyValuePair<ButtonName, Action> button in _ButtonsDown)
             {
@@ -43,7 +43,7 @@ namespace Vandraren.Inputs
             }
         }
 
-        public void CheckButtonsPressed()
+        private void CheckButtonsPressed()
         {
             foreach (KeyValuePair<ButtonName, Action> button in _ButtonsPressed)
             {
@@ -54,7 +54,7 @@ namespace Vandraren.Inputs
             }
         }
 
-        public void CheckButtonsUp()
+        private void CheckButtonsUp()
         {
             foreach (KeyValuePair<ButtonName, Action> button in _ButtonsUp)
             {
