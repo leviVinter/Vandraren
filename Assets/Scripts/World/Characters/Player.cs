@@ -27,7 +27,7 @@ namespace Vandraren.World.Characters
             SetupInstrument();
             SetupInputChecker();
 
-            SetActive(true);
+            _IsActive = true;
         }
 
         private void Update()
@@ -53,14 +53,11 @@ namespace Vandraren.World.Characters
         private void SetupInstrument()
         {
             _Instrument = GetComponent<Instrument>();
-            _Instrument.SetActive(false);
 
             if (_Animator != null)
             {
                 _Instrument.SetAnimator(_Animator);
             }
-
-            _Instrument.SetStopCallback(new Action(() => SetActive(true)));
         }
 
         private void SetupPhysics()
@@ -93,12 +90,12 @@ namespace Vandraren.World.Characters
         {
             _Animator.SetTrigger("TakeInstrument");
             _Instrument.SetActive(true);
-            SetActive(false);
+            _IsActive = false;
         }
 
-        public void SetActive(bool pActive)
+        public void Activate()
         {
-            _IsActive = pActive;
+            _IsActive = true;
         }
     }
 }

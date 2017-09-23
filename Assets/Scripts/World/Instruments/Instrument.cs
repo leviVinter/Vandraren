@@ -9,18 +9,19 @@ namespace Vandraren.Instruments
 {
     public class Instrument : MonoBehaviour
     {
-        public List<string> _Tones = new List<string>();
-        public string _MixerGroup;
+        public List<string> Tones = new List<string>();
+        public string MixerGroup;
 
         private InputChecker _InputChecker { get; set; }
         private Animator _Animator { get; set; }
         private bool _IsActive { get; set; }
-        private GameObject _Owner { get; set; }
         private Action _StopCallback { get; set; }
 
         private void Awake()
         {
             SetupInputChecker();
+
+            _IsActive = false;
         }
 
         public void SetAnimator(Animator pAnimator)
@@ -49,7 +50,7 @@ namespace Vandraren.Instruments
                 ButtonName.Five
             };
 
-            for (int i = 0; i < _Tones.Count; i++)
+            for (int i = 0; i < Tones.Count; i++)
             {
                 _InputChecker.AddButtonCheck(buttons[i], playActions[i]);
             }
@@ -64,48 +65,33 @@ namespace Vandraren.Instruments
 
         private void PlayFirst()
         {
-            PlayTone(_Tones[0]);
+            PlayTone(Tones[0]);
         }
 
         private void PlaySecond()
         {
-            PlayTone(_Tones[1]);
+            PlayTone(Tones[1]);
         }
 
         private void PlayThird()
         {
-            PlayTone(_Tones[2]);
+            PlayTone(Tones[2]);
         }
 
         private void PlayFourth()
         {
-            PlayTone(_Tones[3]);
+            PlayTone(Tones[3]);
         }
 
         private void PlayFifth()
         {
-            PlayTone(_Tones[4]);
-        }
-
-        public void SetStopCallback(Action pAction)
-        {
-            _StopCallback = pAction;
+            PlayTone(Tones[4]);
         }
 
         private void StopPlaying()
         {
             _Animator.SetTrigger("RemoveInstrument");
             SetActive(false);
-
-            if (_StopCallback != null)
-            {
-                _StopCallback();
-            }
-        }
-
-        public void SetOwner(GameObject pOwner)
-        {
-            _Owner = pOwner;
         }
 
         public void SetActive(bool pActive = true)
