@@ -65,7 +65,7 @@ namespace Vandraren.Inputs
             }
         }
 
-        public void AddInputCheck(ButtonName pButton, Action pCallback, ButtonPressType pPressType)
+        public void AddInputCheck(ButtonName pButton, Action pCallback, ButtonPressType pPressType = ButtonPressType.Down)
         {
             switch(pPressType)
             {

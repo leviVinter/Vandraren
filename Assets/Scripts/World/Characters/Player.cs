@@ -1,35 +1,63 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Vandraren.Inputs;
 using Vandraren.Sound;
 using Vandraren.World.Physics;
 
 namespace Vandraren.World.Characters
 {
-    public class Player : PhysicsObject
+    public class Player : MonoBehaviour
     {
-        public float m_MaxSpeed = 7f;
+        public float _MaxSpeed = 7f;
 
-        private SpriteRenderer m_SpriteRenderer;
-        private Animator m_Animator;
+        private SpriteRenderer _SpriteRenderer;
+        private Animator _Animator;
+        private InputChecker _InputChecker;
 
         private void Awake()
         {
-            m_SpriteRenderer = GetComponent<SpriteRenderer>();
+            _SpriteRenderer = GetComponent<SpriteRenderer>();
+            _InputChecker = new InputChecker();
+            SetupInputChecker();
+            _Animator = GetComponent<Animator>();
         }
 
-        protected override void ComputeVelocity()
+        private void Update()
         {
-            Vector2 move = Vector2.zero;
-            move.x = Input.GetAxis("Horizontal");
+            _InputChecker.Check();
+        }
 
-            bool flipSprite = (m_SpriteRenderer.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
-            if (flipSprite)
-            {
-                m_SpriteRenderer.flipX = !m_SpriteRenderer.flipX;
-            }
+        private void SetupInputChecker()
+        {
+            _InputChecker.AddInputCheck(ButtonName.Right, MovePlayer);
+            _InputChecker.AddInputCheck(ButtonName.Right, StopPlayer, ButtonPressType.Up);
+        }
 
-            m_TargetVelocity = move * m_MaxSpeed;
+        //protected override void ComputeVelocity()
+        //{
+        //    Vector2 move = Vector2.zero;
+        //    move.x = Input.GetAxis("Horizontal");
+
+        //    bool flipSprite = (_SpriteRenderer.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
+        //    if (flipSprite)
+        //    {
+        //        _SpriteRenderer.flipX = !_SpriteRenderer.flipX;
+        //    }
+
+        //    m_TargetVelocity = move * _MaxSpeed;
+        //}
+
+        private void MovePlayer()
+        {
+            _Animator.SetBool("Walking", true);
+            Debug.Log("Walk");
+        }
+
+        private void StopPlayer()
+        {
+            _Animator.SetBool("Walking", false);
+            Debug.Log("Stop");
         }
     }
 }
