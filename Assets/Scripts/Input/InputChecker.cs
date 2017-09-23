@@ -20,12 +20,14 @@ namespace Vandraren.Inputs
         private Dictionary<ButtonName, Action> _ButtonsDown { get; set; }
         private Dictionary<ButtonName, Action> _ButtonsPressed { get; set; }
         private Dictionary<ButtonName, Action> _ButtonsUp { get; set; }
+        private Dictionary<AxisName, Action<float>> _Axis { get; set; }
 
         public InputChecker()
         {
             _ButtonsDown = new Dictionary<ButtonName, Action>();
             _ButtonsPressed = new Dictionary<ButtonName, Action>();
             _ButtonsUp = new Dictionary<ButtonName, Action>();
+            _Axis = new Dictionary<AxisName, Action<float>>();
         }
 
         /// <summary>
@@ -80,13 +82,26 @@ namespace Vandraren.Inputs
             }
         }
 
+        private void CheckAxis()
+        {
+            float axisValue = float.MinValue;
+            foreach (KeyValuePair<AxisName, Action<float>> axis in _Axis)
+            {
+                axisValue = InputHandler.GetAxis(axis.Key);
+                if (axisValue > 0.01f || axisValue < -0.01f )
+                {
+                    axis.Value(axisValue);
+                }
+            }
+        }
+
         /// <summary>
         /// Add a button to check input for
         /// </summary>
         /// <param name="pButton">Name of the button</param>
         /// <param name="pCallback">The function to call if the button is used</param>
         /// <param name="pPressType">Which kind of button press to check for</param>
-        public void AddInputCheck(ButtonName pButton, Action pCallback, ButtonPressType pPressType = ButtonPressType.Down)
+        public void AddButtonCheck(ButtonName pButton, Action pCallback, ButtonPressType pPressType = ButtonPressType.Down)
         {
             switch(pPressType)
             {
@@ -103,6 +118,11 @@ namespace Vandraren.Inputs
                     new ArgumentException("The button press type is not accounted for");
                     break;
             }
+        }
+
+        public void AddAxisCheck(AxisName pAxis, Action<float> pCallback)
+        {
+            _Axis[pAxis] = pCallback;
         }
     }
 }

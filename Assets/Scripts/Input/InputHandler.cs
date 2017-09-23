@@ -6,9 +6,6 @@ namespace Vandraren.Inputs
 {
     public enum ButtonName
     {
-        None,
-        Left,
-        Right,
         One,
         Two,
         Three,
@@ -16,12 +13,15 @@ namespace Vandraren.Inputs
         Five
     }
 
+    public enum AxisName
+    {
+        Horizontal
+    }
+
     public static class InputHandler
     {
-        private static Dictionary<ButtonName, KeyCode> _KeyNames = new Dictionary<ButtonName, KeyCode>()
+        private static Dictionary<ButtonName, KeyCode> _ButtonNames = new Dictionary<ButtonName, KeyCode>()
         {
-            { ButtonName.Left, KeyCode.A },
-            { ButtonName.Right, KeyCode.D },
             { ButtonName.One, KeyCode.Alpha1 },
             { ButtonName.Two, KeyCode.Alpha2 },
             { ButtonName.Three, KeyCode.Alpha3 },
@@ -29,24 +29,29 @@ namespace Vandraren.Inputs
             { ButtonName.Five, KeyCode.Alpha5 }
         };
 
-        public static float GetAxis()
+        private static Dictionary<AxisName, string> _AxisNames = new Dictionary<AxisName, string>()
         {
-            return Input.GetAxis("Horizontal");
+            { AxisName.Horizontal, "Horizontal" }
+        };
+
+        public static float GetAxis(AxisName pAxis)
+        {
+            return Input.GetAxis(_AxisNames[pAxis]);
         }
 
         public static bool GetButtonDown(ButtonName pButton)
         {
-            return Input.GetKeyDown(_KeyNames[pButton]);
+            return Input.GetKeyDown(_ButtonNames[pButton]);
         }
 
         public static bool GetButton(ButtonName pButton)
         {
-            return Input.GetKey(_KeyNames[pButton]);
+            return Input.GetKey(_ButtonNames[pButton]);
         }
 
         public static bool GetButtonUp(ButtonName pButton)
         {
-            return Input.GetKeyUp(_KeyNames[pButton]);
+            return Input.GetKeyUp(_ButtonNames[pButton]);
         }
     }
 }

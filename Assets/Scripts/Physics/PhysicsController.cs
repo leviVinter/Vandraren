@@ -29,15 +29,10 @@ namespace Vandraren.World.Physics
             _ContactFilter.useLayerMask = true;
         }
 
-        private void Update()
-        {
-            _TargetVelocity = Vector2.zero;
-        }
-
-        private void ComputeVelocity()
+        public void ComputeVelocity(float pAxisValue)
         {
             Vector2 move = Vector2.zero;
-            move.x = Input.GetAxis("Horizontal");
+            move.x = pAxisValue;
 
             //bool flipSprite = (_SpriteRenderer.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
             //if (flipSprite)
@@ -48,7 +43,7 @@ namespace Vandraren.World.Physics
             _TargetVelocity = move * _MaxSpeed;
         }
 
-        private void FixedUpdate()
+        public void FixedUpdate()
         {
             _Velocity += _GravityModifier * Physics2D.gravity * Time.deltaTime;
             _Velocity.x = _TargetVelocity.x;
@@ -61,6 +56,7 @@ namespace Vandraren.World.Physics
 
             movement = Vector2.up * deltaPosition.y;
             Move(movement, true);
+            _TargetVelocity = Vector2.zero;
         }
 
         private void Move(Vector2 pMovement, bool pYMovement)

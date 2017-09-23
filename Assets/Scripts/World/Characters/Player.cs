@@ -30,10 +30,14 @@ namespace Vandraren.World.Characters
             _InputChecker.Check();
         }
 
+        private void FixedUpdate()
+        {
+            _Physics.FixedUpdate();
+        }
+
         private void SetupInputChecker()
         {
-            _InputChecker.AddInputCheck(ButtonName.Right, MovePlayer);
-            _InputChecker.AddInputCheck(ButtonName.Right, StopPlayer, ButtonPressType.Up);
+            _InputChecker.AddAxisCheck(AxisName.Horizontal, _Physics.ComputeVelocity);
         }
 
         private void SetupPhysics()
