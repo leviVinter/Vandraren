@@ -12,6 +12,9 @@ namespace Vandraren.Inputs
         Up
     }
 
+    /// <summary>
+    /// Collect all the buttons to check input for
+    /// </summary>
     public class InputChecker
     {
         private Dictionary<ButtonName, Action> _ButtonsDown { get; set; }
@@ -25,6 +28,9 @@ namespace Vandraren.Inputs
             _ButtonsUp = new Dictionary<ButtonName, Action>();
         }
 
+        /// <summary>
+        /// Check if any buttons are pressed
+        /// </summary>
         public void Check()
         {
             CheckButtonsDown();
@@ -32,6 +38,9 @@ namespace Vandraren.Inputs
             CheckButtonsUp();
         }
 
+        /// <summary>
+        /// Check if a button is down
+        /// </summary>
         private void CheckButtonsDown()
         {
             foreach (KeyValuePair<ButtonName, Action> button in _ButtonsDown)
@@ -43,6 +52,9 @@ namespace Vandraren.Inputs
             }
         }
 
+        /// <summary>
+        /// Check if a button is pressed and held down
+        /// </summary>
         private void CheckButtonsPressed()
         {
             foreach (KeyValuePair<ButtonName, Action> button in _ButtonsPressed)
@@ -54,6 +66,9 @@ namespace Vandraren.Inputs
             }
         }
 
+        /// <summary>
+        /// Check if a button is released
+        /// </summary>
         private void CheckButtonsUp()
         {
             foreach (KeyValuePair<ButtonName, Action> button in _ButtonsUp)
@@ -65,6 +80,12 @@ namespace Vandraren.Inputs
             }
         }
 
+        /// <summary>
+        /// Add a button to check input for
+        /// </summary>
+        /// <param name="pButton">Name of the button</param>
+        /// <param name="pCallback">The function to call if the button is used</param>
+        /// <param name="pPressType">Which kind of button press to check for</param>
         public void AddInputCheck(ButtonName pButton, Action pCallback, ButtonPressType pPressType = ButtonPressType.Down)
         {
             switch(pPressType)
