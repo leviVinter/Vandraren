@@ -15,6 +15,7 @@ namespace Vandraren.Sound
     public class SoundManager
     {
         private static MusicPlayer _MusicPlayer { get; set; }
+        private static SfxPlayer _SfxPlayer { get; set; }
         private static MasterMixer _Mixer { get; set; }
 
         private static Dictionary<string, AudioClip> _MusicClips = new Dictionary<string, AudioClip>();
@@ -25,9 +26,31 @@ namespace Vandraren.Sound
             _MusicPlayer = pPlayer;
         }
 
+        public static void SetSfxPlayer(SfxPlayer pPlayer)
+        {
+            _SfxPlayer = pPlayer;
+        }
+
         public static void SetMixer(MasterMixer pMixer)
         {
             _Mixer = pMixer;
+        }
+
+        /// <summary>
+        /// Play an sfx clip and set the mixer group.
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <param name="pMixerGroup"></param>
+        public static void PlaySfx(string pName, string pMixerGroup = "")
+        {
+            AudioClip clip = GetAudioClip(pName, SoundType.SFX);
+
+            AudioSource source = _SfxPlayer.Play(clip);
+
+            if (!string.IsNullOrEmpty(pMixerGroup))
+            {
+                SetMixerGroup(pMixerGroup, source);
+            }
         }
 
         /// <summary>

@@ -6,6 +6,8 @@ namespace Vandraren.Inputs
 {
     public enum ButtonName
     {
+        PlayInstrument,
+        RemoveInstrument,
         One,
         Two,
         Three,
@@ -26,7 +28,9 @@ namespace Vandraren.Inputs
             { ButtonName.Two, KeyCode.Alpha2 },
             { ButtonName.Three, KeyCode.Alpha3 },
             { ButtonName.Four, KeyCode.Alpha4 },
-            { ButtonName.Five, KeyCode.Alpha5 }
+            { ButtonName.Five, KeyCode.Alpha5 },
+            { ButtonName.PlayInstrument, KeyCode.T },
+            { ButtonName.RemoveInstrument, KeyCode.V }
         };
 
         private static Dictionary<AxisName, string> _AxisNames = new Dictionary<AxisName, string>()
