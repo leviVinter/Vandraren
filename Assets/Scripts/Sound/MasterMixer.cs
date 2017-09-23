@@ -9,6 +9,11 @@ namespace Vandraren.Sound
     {
         public AudioMixer _Mixer;
 
+        private void Awake()
+        {
+            SoundManager.SetMixer(this);
+        }
+
         public AudioMixerGroup GetMixerGroup(string pGroupName)
         {
             AudioMixerGroup[] groups = _Mixer.FindMatchingGroups(pGroupName);

@@ -11,22 +11,23 @@ namespace Vandraren.Sound
         MUSIC,
         SFX
     }
+
     public class SoundManager
     {
-        private MusicPlayer _MusicPlayer;
-        private MasterMixer _Mixer;
+        private static MusicPlayer _MusicPlayer { get; set; }
+        private static MasterMixer _Mixer { get; set; }
 
-        private Dictionary<string, AudioClip> _MusicClips;
-        private Dictionary<string, AudioClip> _SfxClips;
+        private static Dictionary<string, AudioClip> _MusicClips = new Dictionary<string, AudioClip>();
+        private static Dictionary<string, AudioClip> _SfxClips = new Dictionary<string, AudioClip>();
 
-        public SoundManager()
+        public static void SetMusicPlayer(MusicPlayer pPlayer)
         {
-            _MusicPlayer = GameObject.FindObjectOfType<MusicPlayer>();
-            _Mixer = GameObject.FindObjectOfType<MasterMixer>();
+            _MusicPlayer = pPlayer;
+        }
 
-            _MusicClips = new Dictionary<string, AudioClip>();
-            _SfxClips = new Dictionary<string, AudioClip>();
-
+        public static void SetMixer(MasterMixer pMixer)
+        {
+            _Mixer = pMixer;
         }
 
         /// <summary>
@@ -34,11 +35,11 @@ namespace Vandraren.Sound
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pMixerGroup"></param>
-        public void PlayMusic(string pName, string pMixerGroup = "")
+        public static void PlayMusic(string pName, string pMixerGroup = "")
         {
             AudioClip clip = GetAudioClip(pName, SoundType.MUSIC);
 
-            AudioSource[] sources =_MusicPlayer.PlayMusic(clip);
+            AudioSource[] sources = _MusicPlayer.PlayMusic(clip);
 
             if (!string.IsNullOrEmpty(pMixerGroup))
             {
@@ -55,7 +56,7 @@ namespace Vandraren.Sound
         /// <param name="pName"></param>
         /// <param name="pType"></param>
         /// <returns></returns>
-        private AudioClip GetAudioClip(string pName, SoundType pType)
+        private static AudioClip GetAudioClip(string pName, SoundType pType)
         {
             AudioClip clip;
             Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>();
@@ -81,6 +82,12 @@ namespace Vandraren.Sound
                 string fullPath = string.Format("{0}{1}", folderPath, pName);
 
                 clip = Resources.Load(fullPath) as AudioClip;
+
+                if (clip == null)
+                {
+                    Debug.Log("Couldn't find audiofile: " + fullPath);
+                }
+
                 clips.Add(pName, clip);
             }
 
@@ -92,7 +99,7 @@ namespace Vandraren.Sound
         /// </summary>
         /// <param name="pName"></param>
         /// <param name="pSource"></param>
-        private void SetMixerGroup(string pName, AudioSource pSource)
+        private static void SetMixerGroup(string pName, AudioSource pSource)
         {
             AudioMixerGroup group = _Mixer.GetMixerGroup(pName);
             pSource.outputAudioMixerGroup = group;

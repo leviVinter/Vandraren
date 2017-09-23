@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Vandraren.Sound;
 using Vandraren.World.Physics;
 
 namespace Vandraren.World.Characters

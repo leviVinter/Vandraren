@@ -8,6 +8,11 @@ namespace Vandraren.Sound
     {
         public AudioSource[] Sources;
 
+        private void Awake()
+        {
+            SoundManager.SetMusicPlayer(this);
+        }
+
         /// <summary>
         /// Play an audioclip in a loop.
         /// </summary>
