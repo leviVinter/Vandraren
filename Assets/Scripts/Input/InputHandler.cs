@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Vandraren.Inputs
 {
-    public class InputHandler : MonoBehaviour
+    public class InputHandler
     {
         	   
     }
