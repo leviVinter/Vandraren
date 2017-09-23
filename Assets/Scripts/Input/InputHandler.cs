@@ -29,6 +29,11 @@ namespace Vandraren.Inputs
             { ButtonName.Five, KeyCode.Alpha5 }
         };
 
+        public static float GetAxis()
+        {
+            return Input.GetAxis("Horizontal");
+        }
+
         public static bool GetButtonDown(ButtonName pButton)
         {
             return Input.GetKeyDown(_KeyNames[pButton]);

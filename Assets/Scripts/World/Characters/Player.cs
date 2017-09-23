@@ -14,6 +14,7 @@ namespace Vandraren.World.Characters
         private SpriteRenderer _SpriteRenderer;
         private Animator _Animator;
         private InputChecker _InputChecker;
+        private PhysicsController _Physics;
 
         private void Awake()
         {
@@ -21,6 +22,7 @@ namespace Vandraren.World.Characters
             _InputChecker = new InputChecker();
             SetupInputChecker();
             _Animator = GetComponent<Animator>();
+            SetupPhysics();
         }
 
         private void Update()
@@ -34,30 +36,21 @@ namespace Vandraren.World.Characters
             _InputChecker.AddInputCheck(ButtonName.Right, StopPlayer, ButtonPressType.Up);
         }
 
-        //protected override void ComputeVelocity()
-        //{
-        //    Vector2 move = Vector2.zero;
-        //    move.x = Input.GetAxis("Horizontal");
-
-        //    bool flipSprite = (_SpriteRenderer.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
-        //    if (flipSprite)
-        //    {
-        //        _SpriteRenderer.flipX = !_SpriteRenderer.flipX;
-        //    }
-
-        //    m_TargetVelocity = move * _MaxSpeed;
-        //}
+        private void SetupPhysics()
+        {
+            Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+            LayerMask layer = gameObject.layer;
+            _Physics = new PhysicsController(rigidbody, layer);
+        }
 
         private void MovePlayer()
         {
             _Animator.SetBool("Walking", true);
-            Debug.Log("Walk");
         }
 
         private void StopPlayer()
         {
             _Animator.SetBool("Walking", false);
-            Debug.Log("Stop");
         }
     }
 }
