@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Vandraren.World.Physics;
-using Vandraren.Inputs;
 
 namespace Vandraren.World.Characters
 {
