@@ -10,11 +10,11 @@ namespace Vandraren.World.Characters
 {
     public class Player : MonoBehaviour
     {
-        private SpriteRenderer _SpriteRenderer;
-        private Animator _Animator;
-        private InputChecker _InputChecker;
-        private PhysicsController _Physics;
-	    private Instrument _Instrument;
+        private SpriteRenderer _SpriteRenderer { get; set; }
+        private Animator _Animator { get; set; }
+        private InputChecker _InputChecker { get; set; }
+        private PhysicsController _Physics { get; set; }
+	    private Instrument _Instrument { get; set; }
 
         private bool _IsActive { get; set; }
 

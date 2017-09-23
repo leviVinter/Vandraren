@@ -6,18 +6,18 @@ namespace Vandraren.World.Physics
 {
     public class PhysicsController
     {
-        public float _GravityModifier = 3f;
-        public float _MinGroundNormalY = 0.65f;
+        public float _GravityModifier { get; set; }
+        public float _MinGroundNormalY { get; set; }
 
-        private Rigidbody2D _Rigidbody;
-        private Vector2 _Velocity = Vector2.zero;
+        private Vector2 _Velocity;
         private ContactFilter2D _ContactFilter;
-        private RaycastHit2D[] _HitBuffer = new RaycastHit2D[16];
-        private List<RaycastHit2D> _HitBufferList = new List<RaycastHit2D>(16);
-        private Vector2 _TargetVelocity;
-        private bool _Grounded = false;
-        private Vector2 _GroundNormal = Vector2.zero;
-        private float _MaxSpeed = 7.0f;
+        private Rigidbody2D _Rigidbody { get; set; }
+        private RaycastHit2D[] _HitBuffer { get; set; }
+        private List<RaycastHit2D> _HitBufferList { get; set; }
+        private Vector2 _TargetVelocity { get; set; }
+        //private bool _Grounded = false;
+        private Vector2 _GroundNormal { get; set; }
+        private float _MaxSpeed { get; set; }
 
         private const float _MinMoveDistance = 0.001f;
         private const float _ShellRadius = 0.01f;
@@ -27,6 +27,14 @@ namespace Vandraren.World.Physics
             _Rigidbody = pRigidbody;
             _ContactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(pLayer));
             _ContactFilter.useLayerMask = true;
+
+            _GravityModifier = 3.0f;
+            _MinGroundNormalY = 0.65f;
+            _HitBuffer = new RaycastHit2D[16];
+            _HitBufferList = new List<RaycastHit2D>(16);
+            _Velocity = Vector2.zero;
+            _GroundNormal = Vector2.zero;
+            _MaxSpeed = 7.0f;
         }
 
         public void ComputeVelocity(float pAxisValue)
@@ -48,7 +56,7 @@ namespace Vandraren.World.Physics
             _Velocity += _GravityModifier * Physics2D.gravity * Time.deltaTime;
             _Velocity.x = _TargetVelocity.x;
 
-            _Grounded = false;
+            //_Grounded = false;
             Vector2 deltaPosition = _Velocity * Time.deltaTime;
             Vector2 moveAlongGround = new Vector2(_GroundNormal.y, -_GroundNormal.x);
             Vector2 movement = moveAlongGround * deltaPosition.x;
@@ -75,7 +83,7 @@ namespace Vandraren.World.Physics
                     Vector2 tempCurrentNormal = _HitBufferList[i].normal;
                     if (tempCurrentNormal.y > _MinGroundNormalY)
                     {
-                        _Grounded = true;
+                        //_Grounded = true;
                         if (pYMovement)
                         {
                             _GroundNormal = tempCurrentNormal;
