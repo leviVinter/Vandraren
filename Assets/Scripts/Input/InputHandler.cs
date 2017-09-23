@@ -16,37 +16,32 @@ namespace Vandraren.Inputs
         Five
     }
 
-    public class InputHandler
+    public static class InputHandler
     {
-        private Dictionary<ButtonName, KeyCode> KeyNames;
-
-        public InputHandler()
+        private static Dictionary<ButtonName, KeyCode> _KeyNames = new Dictionary<ButtonName, KeyCode>()
         {
-            KeyNames = new Dictionary<ButtonName, KeyCode>()
-            {
-                { ButtonName.Left, KeyCode.A },
-                { ButtonName.Right, KeyCode.D },
-                { ButtonName.One, KeyCode.Alpha1 },
-                { ButtonName.Two, KeyCode.Alpha2 },
-                { ButtonName.Three, KeyCode.Alpha3 },
-                { ButtonName.Four, KeyCode.Alpha4 },
-                { ButtonName.Five, KeyCode.Alpha5 }
-            };
+            { ButtonName.Left, KeyCode.A },
+            { ButtonName.Right, KeyCode.D },
+            { ButtonName.One, KeyCode.Alpha1 },
+            { ButtonName.Two, KeyCode.Alpha2 },
+            { ButtonName.Three, KeyCode.Alpha3 },
+            { ButtonName.Four, KeyCode.Alpha4 },
+            { ButtonName.Five, KeyCode.Alpha5 }
+        };
+
+        public static bool GetButtonDown(ButtonName pButton)
+        {
+            return Input.GetKeyDown(_KeyNames[pButton]);
         }
 
-        public bool GetButtonDown(ButtonName pButton)
+        public static bool GetButton(ButtonName pButton)
         {
-            return Input.GetKeyDown(KeyNames[pButton]);
+            return Input.GetKey(_KeyNames[pButton]);
         }
 
-        public bool GetButton(ButtonName pButton)
+        public static bool GetButtonUp(ButtonName pButton)
         {
-            return Input.GetKey(KeyNames[pButton]);
-        }
-
-        public bool GetButtonUp(ButtonName pButton)
-        {
-            return Input.GetKeyUp(KeyNames[pButton]);
+            return Input.GetKeyUp(_KeyNames[pButton]);
         }
     }
 }
