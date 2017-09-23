@@ -9,6 +9,7 @@ namespace Vandraren.Inputs
         None,
         Left,
         Right,
+        PlayInstrument,
         One,
         Two,
         Three,
@@ -26,7 +27,8 @@ namespace Vandraren.Inputs
             { ButtonName.Two, KeyCode.Alpha2 },
             { ButtonName.Three, KeyCode.Alpha3 },
             { ButtonName.Four, KeyCode.Alpha4 },
-            { ButtonName.Five, KeyCode.Alpha5 }
+            { ButtonName.Five, KeyCode.Alpha5 },
+            { ButtonName.PlayInstrument, KeyCode.T },
         };
 
         public static bool GetButtonDown(ButtonName pButton)

@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Vandraren.Inputs;
+using Vandraren.Instruments;
 using Vandraren.Sound;
 using Vandraren.World.Physics;
 
@@ -14,24 +16,49 @@ namespace Vandraren.World.Characters
         private SpriteRenderer _SpriteRenderer;
         private Animator _Animator;
         private InputChecker _InputChecker;
+        private Instrument _Instrument;
+
+        private bool _IsActive { get; set; }
 
         private void Awake()
         {
             _SpriteRenderer = GetComponent<SpriteRenderer>();
-            _InputChecker = new InputChecker();
-            SetupInputChecker();
             _Animator = GetComponent<Animator>();
+            
+            SetupInputChecker();
+            SetupInstrument();
+
+            SetActive(true);
         }
 
         private void Update()
         {
-            _InputChecker.Check();
+            if (_IsActive)
+            {
+                _InputChecker.Check();
+            }
         }
 
         private void SetupInputChecker()
         {
+            _InputChecker = new InputChecker();
+
             _InputChecker.AddInputCheck(ButtonName.Right, MovePlayer);
             _InputChecker.AddInputCheck(ButtonName.Right, StopPlayer, ButtonPressType.Up);
+            _InputChecker.AddInputCheck(ButtonName.PlayInstrument, PlayInstrument);
+        }
+
+        private void SetupInstrument()
+        {
+            _Instrument = GetComponent<Instrument>();
+            _Instrument.SetActive(false);
+
+            if (_Animator != null)
+            {
+                _Instrument.SetAnimator(_Animator);
+            }
+
+            _Instrument.SetStopCallback(new Action(() => SetActive(true)));
         }
 
         //protected override void ComputeVelocity()
@@ -58,6 +85,18 @@ namespace Vandraren.World.Characters
         {
             _Animator.SetBool("Walking", false);
             Debug.Log("Stop");
+        }
+
+        private void PlayInstrument()
+        {
+            _Animator.SetTrigger("TakeInstrument");
+            _Instrument.SetActive(true);
+            SetActive(false);
+        }
+
+        public void SetActive(bool pActive)
+        {
+            _IsActive = pActive;
         }
     }
 }
