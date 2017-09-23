@@ -85,14 +85,9 @@ namespace Vandraren.Inputs
 
         private void CheckAxis()
         {
-            float axisValue = float.MinValue;
             foreach (KeyValuePair<AxisName, Action<float>> axis in _Axis)
             {
-                axisValue = InputHandler.GetAxis(axis.Key);
-                if (axisValue > 0.01f || axisValue < -0.01f )
-                {
-                    axis.Value(axisValue);
-                }
+                axis.Value(InputHandler.GetAxis(axis.Key));
             }
         }
 

@@ -23,9 +23,9 @@ namespace Vandraren.World.Characters
             _SpriteRenderer = GetComponent<SpriteRenderer>();
             _Animator = GetComponent<Animator>();
             
-            SetupInputChecker();
-            SetupInstrument();
 	        SetupPhysics();
+            SetupInstrument();
+            SetupInputChecker();
 
             SetActive(true);
         }
@@ -45,7 +45,8 @@ namespace Vandraren.World.Characters
 
         private void SetupInputChecker()
         {
-            _InputChecker.AddAxisCheck(AxisName.Horizontal, _Physics.ComputeVelocity);
+            _InputChecker = new InputChecker();
+            _InputChecker.AddAxisCheck(AxisName.Horizontal, OnMovement);
 	        _InputChecker.AddButtonCheck(ButtonName.PlayInstrument, PlayInstrument);
         }
 
@@ -67,6 +68,25 @@ namespace Vandraren.World.Characters
             Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
             LayerMask layer = gameObject.layer;
             _Physics = new PhysicsController(rigidbody, layer);
+        }
+
+        private void OnMovement(float pAxisValue)
+        {
+            _Physics.ComputeVelocity(pAxisValue);
+            if (pAxisValue < -0.01f || pAxisValue > 0.01f)
+            {
+                if (!_Animator.GetBool("Walking"))
+                {
+                    _Animator.SetBool("Walking", true);
+                }
+            }
+            else
+            {
+                if (_Animator.GetBool("Walking"))
+                {
+                    _Animator.SetBool("Walking", false);
+                }
+            }
         }
 
          private void PlayInstrument()
