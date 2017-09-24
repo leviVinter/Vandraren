@@ -30,7 +30,7 @@ namespace Vandraren.Inputs
             { ButtonName.Four, KeyCode.Alpha4 },
             { ButtonName.Five, KeyCode.Alpha5 },
             { ButtonName.PlayInstrument, KeyCode.T },
-            { ButtonName.RemoveInstrument, KeyCode.V }
+            { ButtonName.RemoveInstrument, KeyCode.T }
         };
 
         private static Dictionary<AxisName, string> _AxisNames = new Dictionary<AxisName, string>()
