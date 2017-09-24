@@ -14,26 +14,26 @@ namespace Vandraren.Sound
 
     public class SoundManager
     {
-        private static MusicPlayer _MusicPlayer { get; set; }
-        private static SfxPlayer _SfxPlayer { get; set; }
-        private static MasterMixer _Mixer { get; set; }
+        private static MusicPlayer _MusicPlayer;
+        private static SfxPlayer _SfxPlayer;
+        private static MasterMixer _Mixer;
 
         private static Dictionary<string, AudioClip> _MusicClips = new Dictionary<string, AudioClip>();
         private static Dictionary<string, AudioClip> _SfxClips = new Dictionary<string, AudioClip>();
 
-        public static void SetMusicPlayer(MusicPlayer pPlayer)
+        public static MusicPlayer MusicPlayer
         {
-            _MusicPlayer = pPlayer;
+            set { _MusicPlayer = value; }
         }
 
-        public static void SetSfxPlayer(SfxPlayer pPlayer)
+        public static SfxPlayer SfxPlayer
         {
-            _SfxPlayer = pPlayer;
+            set { _SfxPlayer = value; }
         }
 
-        public static void SetMixer(MasterMixer pMixer)
+        public static MasterMixer Mixer
         {
-            _Mixer = pMixer;
+            set { _Mixer = value; }
         }
 
         /// <summary>

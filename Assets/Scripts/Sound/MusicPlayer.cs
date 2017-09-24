@@ -6,11 +6,12 @@ namespace Vandraren.Sound
 {
     public class MusicPlayer : MonoBehaviour
     {
-        public AudioSource[] Sources;
+        [SerializeField]
+        private AudioSource[] Sources;
 
         private void Awake()
         {
-            SoundManager.SetMusicPlayer(this);
+            SoundManager.MusicPlayer = this;
         }
 
         /// <summary>

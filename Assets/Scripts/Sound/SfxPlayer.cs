@@ -6,11 +6,12 @@ namespace Vandraren.Sound
 {
     public class SfxPlayer : MonoBehaviour
     {
-        public AudioSource _SourcePrefab;
+        [SerializeField]
+        private AudioSource _SourcePrefab;
 
         private void Awake()
         {
-            SoundManager.SetSfxPlayer(this);
+            SoundManager.SfxPlayer = this;
         }
 
         public AudioSource Play(AudioClip pClip)

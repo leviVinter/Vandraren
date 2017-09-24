@@ -7,11 +7,12 @@ namespace Vandraren.Sound
 {
     public class MasterMixer : MonoBehaviour
     {
-        public AudioMixer _Mixer;
+        [SerializeField]
+        private AudioMixer _Mixer;
 
         private void Awake()
         {
-            SoundManager.SetMixer(this);
+            SoundManager.Mixer = this;
         }
 
         public AudioMixerGroup GetMixerGroup(string pGroupName)

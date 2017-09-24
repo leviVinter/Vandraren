@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Vandraren.Inputs;
 using Vandraren.Instruments;
+using Vandraren.UI;
 using Vandraren.World.Physics;
 
 namespace Vandraren.World.Characters
 {
     public class Player : MonoBehaviour
     {
-        private SpriteRenderer _SpriteRenderer { get; set; }
-        private Animator _Animator { get; set; }
-        private InputChecker _InputChecker { get; set; }
-        private PhysicsController _Physics { get; set; }
-	    private Instrument _Instrument { get; set; }
+        private SpriteRenderer _SpriteRenderer;
+        private Animator _Animator;
+        private InputChecker _InputChecker;
+        private PhysicsController _Physics;
+        private Instrument _Instrument;
 
         private bool _IsActive { get; set; }
 
@@ -28,6 +29,16 @@ namespace Vandraren.World.Characters
             SetupInputChecker();
 
             _IsActive = true;
+        }
+
+        private void Start()
+        {
+            Invoke("OpenChatBubble", 2f);
+        }
+
+        private void OpenChatBubble()
+        {
+            MessageManager.OpenChatBubble("This is the first chat bubble", transform);
         }
 
         private void Update()
@@ -56,7 +67,7 @@ namespace Vandraren.World.Characters
 
             if (_Animator != null)
             {
-                _Instrument.SetAnimator(_Animator);
+                _Instrument.Animator = _Animator;
             }
         }
 
@@ -89,7 +100,7 @@ namespace Vandraren.World.Characters
          private void PlayInstrument()
         {
             _Animator.SetTrigger("TakeInstrument");
-            _Instrument.SetActive(true);
+            _Instrument.IsActive = true;
             _IsActive = false;
         }
 
