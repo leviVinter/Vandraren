@@ -82,7 +82,7 @@ namespace Vandraren.Sound
         private static AudioClip GetAudioClip(string pName, SoundType pType)
         {
             AudioClip clip;
-            Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>();
+            Dictionary<string, AudioClip> clips;
 
             switch (pType)
             {
