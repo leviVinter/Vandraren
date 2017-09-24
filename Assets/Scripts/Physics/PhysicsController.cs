@@ -6,18 +6,18 @@ namespace Vandraren.World.Physics
 {
     public class PhysicsController
     {
-        public float _GravityModifier { get; set; }
-        public float _MinGroundNormalY { get; set; }
+        private float _GravityModifier;
+        private float _MinGroundNormalY;
 
         private Vector2 _Velocity;
         private ContactFilter2D _ContactFilter;
-        private Rigidbody2D _Rigidbody { get; set; }
-        private RaycastHit2D[] _HitBuffer { get; set; }
-        private List<RaycastHit2D> _HitBufferList { get; set; }
-        private Vector2 _TargetVelocity { get; set; }
+        private Rigidbody2D _Rigidbody;
+        private RaycastHit2D[] _HitBuffer;
+        private List<RaycastHit2D> _HitBufferList;
+        private Vector2 _TargetVelocity;
         //private bool _Grounded = false;
-        private Vector2 _GroundNormal { get; set; }
-        private float _MaxSpeed { get; set; }
+        private Vector2 _GroundNormal;
+        private float _MaxSpeed;
 
         private const float _MinMoveDistance = 0.001f;
         private const float _ShellRadius = 0.01f;

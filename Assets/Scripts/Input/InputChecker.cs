@@ -17,10 +17,10 @@ namespace Vandraren.Inputs
     /// </summary>
     public class InputChecker
     {
-        private Dictionary<ButtonName, Action> _ButtonsDown { get; set; }
-        private Dictionary<ButtonName, Action> _ButtonsPressed { get; set; }
-        private Dictionary<ButtonName, Action> _ButtonsUp { get; set; }
-        private Dictionary<AxisName, Action<float>> _Axis { get; set; }
+        private Dictionary<ButtonName, Action> _ButtonsDown;
+        private Dictionary<ButtonName, Action> _ButtonsPressed;
+        private Dictionary<ButtonName, Action> _ButtonsUp;
+        private Dictionary<AxisName, Action<float>> _Axis;
 
         public InputChecker()
         {
