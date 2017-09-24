@@ -17,7 +17,6 @@ namespace Vandraren.View
 
         [SerializeField]
         private Transform _Follow;
-        private Camera _MainCamera;
         public Vector3 _SpecificVector;
         [SerializeField]
         private float _SmoothSpeed;
@@ -27,7 +26,6 @@ namespace Vandraren.View
 
         private void Start()
         {
-            _MainCamera = Camera.main;
             _SmoothSpeed = 3.0f;
             _XThreshold = 1.0f;
         }
