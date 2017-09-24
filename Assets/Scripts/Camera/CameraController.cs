@@ -16,58 +16,73 @@ namespace Vandraren.View
         }
 
         [SerializeField]
-        private Transform _Follow;
-        public Vector3 _SpecificVector;
+        private Transform _Player;
         [SerializeField]
         private float _SmoothSpeed;
         [SerializeField]
         private float _XThreshold;
+        
+        private Vector3 _TargetPosition;
         private MoveDirection _CurrentDir;
+        private MoveDirection _NewDir;
+        private float _PlayerDistance;
 
         private void Start()
         {
             _SmoothSpeed = 3.0f;
-            _XThreshold = 1.0f;
+            _XThreshold = 2.0f;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
-            float xDistance = _Follow.position.x - transform.position.x;
-            MoveDirection dir = CheckNewDirection(xDistance);
-            if (dir == MoveDirection.Still)
+            MoveToPlayer();
+        }
+
+        private void MoveToPlayer()
+        {
+            _PlayerDistance = _Player.position.x - transform.position.x;
+            CheckNewDirection();
+
+            if (_NewDir == MoveDirection.Still)
             {
                 return;
             }
 
-            _SpecificVector = new Vector3(_Follow.position.x, transform.position.y, transform.position.z);
+            _TargetPosition = new Vector3(_Player.position.x, transform.position.y, transform.position.z);
 
-            if (dir != _CurrentDir)
+            if (_NewDir != _CurrentDir)
             {
-                if (Mathf.Abs(xDistance) > _XThreshold)
+                if (Mathf.Abs(_PlayerDistance) > _XThreshold)
                 {
-                    _CurrentDir = dir;
-                    transform.position = Vector3.Lerp(transform.position, _SpecificVector, _SmoothSpeed * Time.deltaTime);
+                    _CurrentDir = _NewDir;
+                    SetPosition();
                 }
             }
-            else if (dir == _CurrentDir)
+            else
             {
-                transform.position = Vector3.Lerp(transform.position, _SpecificVector, _SmoothSpeed * Time.deltaTime);
+                SetPosition();
             }
         }
 
-        private MoveDirection CheckNewDirection(float pDistance)
+        private void CheckNewDirection()
         {
-            MoveDirection dir = MoveDirection.Still;
-            if (pDistance > 0)
+            if (_PlayerDistance > 0)
             {
-                dir = MoveDirection.Right;
+                _NewDir = MoveDirection.Right;
             }
-            else if (pDistance < 0)
+            else if (_PlayerDistance < 0)
             {
-                dir = MoveDirection.Left;
+                _NewDir = MoveDirection.Left;
             }
+            else
+            {
+                _NewDir = MoveDirection.Still;
+            }
+        }
 
-            return dir;
+        private void SetPosition()
+        {
+            transform.position = Vector3.Lerp(transform.position, _TargetPosition, _SmoothSpeed * Time.deltaTime);
         }
     }
 }
