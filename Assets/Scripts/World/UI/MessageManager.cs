@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Vandraren.UI
@@ -16,9 +15,9 @@ namespace Vandraren.UI
                 _ChatBubblePrefab = Resources.Load("Prefabs/ChatBubble", typeof(ChatBubble)) as ChatBubble;
             }
 
-            GameObject canvas = GameObject.FindGameObjectWithTag("MainCanvas");
+            var canvas = GameObject.FindGameObjectWithTag("MainCanvas");
 
-            ChatBubble bubble = GameObject.Instantiate(_ChatBubblePrefab, canvas.transform) as ChatBubble;
+            var bubble = GameObject.Instantiate(_ChatBubblePrefab, canvas.transform) as ChatBubble;
             bubble.Text = pText;
             bubble.Owner = pSpeaker;
             bubble.Position = Camera.main.WorldToScreenPoint(pSpeaker.position);
@@ -28,12 +27,13 @@ namespace Vandraren.UI
 
         public static void CloseChatBubble(Transform pSpeaker)
         {
-            ChatBubble bubble = ChatBubbles.Find(a => a.Owner = pSpeaker);
+            var bubble = ChatBubbles.Find(a => a.Owner = pSpeaker);
+            bubble?.Close();
 
-            if (bubble != null)
-            {
-                bubble.Close();
-            }
+            //if (bubble != null)
+            //{
+            //    bubble.Close();
+            //}
         }
     }
 }

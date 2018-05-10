@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Vandraren.Inputs;
 using Vandraren.Instruments;
 using Vandraren.UI;
@@ -73,27 +70,28 @@ namespace Vandraren.World.Characters
 
         private void SetupPhysics()
         {
-            Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
-            LayerMask layer = gameObject.layer;
+            var rigidbody = GetComponent<Rigidbody2D>();
+            var layer = gameObject.layer;
             _Physics = new PhysicsController(rigidbody, layer);
         }
 
         private void OnMovement(float pAxisValue)
         {
             _Physics.ComputeVelocity(pAxisValue);
-            if (pAxisValue < -0.01f || pAxisValue > 0.01f)
+
+            var isMoving = pAxisValue < -0.01f || pAxisValue > 0.01f;
+            var animatorIsWalking = _Animator.GetBool("Walking");
+
+            if (isMoving)
             {
-                if (!_Animator.GetBool("Walking"))
+                if (!animatorIsWalking)
                 {
                     _Animator.SetBool("Walking", true);
                 }
             }
-            else
+            else if (animatorIsWalking)
             {
-                if (_Animator.GetBool("Walking"))
-                {
-                    _Animator.SetBool("Walking", false);
-                }
+                _Animator.SetBool("Walking", false);
             }
         }
 

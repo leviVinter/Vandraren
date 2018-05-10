@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -17,9 +16,9 @@ namespace Vandraren.Sound
 
         public AudioMixerGroup GetMixerGroup(string pGroupName)
         {
-            AudioMixerGroup[] groups = _Mixer.FindMatchingGroups(pGroupName);
-
-            if (groups.Length == 0)
+            var groups = _Mixer.FindMatchingGroups(pGroupName);
+ 
+            if (!groups.Any())
             {
                 return null;
             }

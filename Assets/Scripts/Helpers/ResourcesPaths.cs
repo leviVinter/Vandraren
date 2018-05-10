@@ -1,34 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Vandraren.Sound;
+﻿using Vandraren.Sound;
 
 namespace Vandraren.Helpers
 {
-    public class ResourcesPaths
+    public class ResourcePaths
     {
         /// <summary>
         /// Get the sound folder of a certain soundtype.
         /// </summary>
-        /// <param name="pType"></param>
-        /// <returns></returns>
-        public static string SoundFolder(SoundType pType)
+        /// <param name="pType">Sound type to look for</param>
+        /// <returns>Name of the sound folder</returns>
+        public static string GetSoundFolder(SoundType pType)
         {
-            string soundFolder = "Sound/";
-            string typeFolder = "";
+            var soundFolder = "Sound/";
+            var typeFolder = "";
 
             switch (pType)
             {
-                case SoundType.MUSIC:
+                case SoundType.Music:
                     typeFolder = "Music/";
                     break;
 
-                case SoundType.SFX:
+                case SoundType.Sfx:
                     typeFolder = "Sfx/";
+                    break;
+
+                default:
+                    typeFolder = "";
                     break;
             }
 
-            return string.Format("{0}{1}", soundFolder, typeFolder);
+            return $"{soundFolder}{typeFolder}";
         }
     }
 }

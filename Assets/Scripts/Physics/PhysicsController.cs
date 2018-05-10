@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Vandraren.World.Physics
@@ -39,7 +38,7 @@ namespace Vandraren.World.Physics
 
         public void ComputeVelocity(float pAxisValue)
         {
-            Vector2 move = Vector2.zero;
+            var move = Vector2.zero;
             move.x = pAxisValue;
 
             //bool flipSprite = (_SpriteRenderer.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
@@ -57,9 +56,9 @@ namespace Vandraren.World.Physics
             _Velocity.x = _TargetVelocity.x;
 
             //_Grounded = false;
-            Vector2 deltaPosition = _Velocity * Time.deltaTime;
-            Vector2 moveAlongGround = new Vector2(_GroundNormal.y, -_GroundNormal.x);
-            Vector2 movement = moveAlongGround * deltaPosition.x;
+            var deltaPosition = _Velocity * Time.deltaTime;
+            var moveAlongGround = new Vector2(_GroundNormal.y, -_GroundNormal.x);
+            var movement = moveAlongGround * deltaPosition.x;
             Move(movement, false);
 
             movement = Vector2.up * deltaPosition.y;
@@ -69,18 +68,18 @@ namespace Vandraren.World.Physics
 
         private void Move(Vector2 pMovement, bool pYMovement)
         {
-            float distance = pMovement.magnitude;
+            var distance = pMovement.magnitude;
             if (distance > _MinMoveDistance)
             {
-                int count = _Rigidbody.Cast(pMovement, _ContactFilter, _HitBuffer, distance + _ShellRadius);
+                var count = _Rigidbody.Cast(pMovement, _ContactFilter, _HitBuffer, distance + _ShellRadius);
                 _HitBufferList.Clear();
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     _HitBufferList.Add(_HitBuffer[i]);
                 }
-                for (int i = 0; i < _HitBufferList.Count; i++)
+                for (var i = 0; i < _HitBufferList.Count; i++)
                 {
-                    Vector2 tempCurrentNormal = _HitBufferList[i].normal;
+                    var tempCurrentNormal = _HitBufferList[i].normal;
                     if (tempCurrentNormal.y > _MinGroundNormalY)
                     {
                         //_Grounded = true;
@@ -91,12 +90,12 @@ namespace Vandraren.World.Physics
                         }
 
                     }
-                    float tempProjection = Vector2.Dot(_Velocity, tempCurrentNormal);
+                    var tempProjection = Vector2.Dot(_Velocity, tempCurrentNormal);
                     if (tempProjection < 0)
                     {
                         _Velocity = _Velocity - tempProjection * tempCurrentNormal;
                     }
-                    float tempModifiedDistance = _HitBufferList[i].distance - _ShellRadius;
+                    var tempModifiedDistance = _HitBufferList[i].distance - _ShellRadius;
                     distance = tempModifiedDistance < distance ? tempModifiedDistance : distance;
                 }
             }

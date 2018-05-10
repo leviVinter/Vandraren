@@ -16,12 +16,12 @@ namespace Vandraren.Sound
 
         public AudioSource Play(AudioClip pClip)
         {
-            AudioSource source = Instantiate(_SourcePrefab, transform);
+            var source = Instantiate(_SourcePrefab, transform);
             source.clip = pClip;
             source.Play();
 
             //float duration = pClip.length + 0.1f;
-            float duration = 1f;
+            var duration = 1f;
             Destroy(source.gameObject, duration);
 
             return source;

@@ -1,7 +1,5 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
 
 namespace Vandraren.Inputs
 {
@@ -46,7 +44,7 @@ namespace Vandraren.Inputs
         /// </summary>
         private void CheckButtonsDown()
         {
-            foreach (KeyValuePair<ButtonName, Action> button in _ButtonsDown)
+            foreach (var button in _ButtonsDown)
             {
                 if (InputHandler.GetButtonDown(button.Key))
                 {
@@ -60,7 +58,7 @@ namespace Vandraren.Inputs
         /// </summary>
         private void CheckButtonsPressed()
         {
-            foreach (KeyValuePair<ButtonName, Action> button in _ButtonsPressed)
+            foreach (var button in _ButtonsPressed)
             {
                 if (InputHandler.GetButton(button.Key))
                 {
@@ -74,7 +72,7 @@ namespace Vandraren.Inputs
         /// </summary>
         private void CheckButtonsUp()
         {
-            foreach (KeyValuePair<ButtonName, Action> button in _ButtonsUp)
+            foreach (var button in _ButtonsUp)
             {
                 if (InputHandler.GetButtonUp(button.Key))
                 {
@@ -85,7 +83,7 @@ namespace Vandraren.Inputs
 
         private void CheckAxis()
         {
-            foreach (KeyValuePair<AxisName, Action<float>> axis in _Axis)
+            foreach (var axis in _Axis)
             {
                 axis.Value(InputHandler.GetAxis(axis.Key));
             }

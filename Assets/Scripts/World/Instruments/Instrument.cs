@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Vandraren.Inputs;
@@ -38,16 +37,16 @@ namespace Vandraren.Instruments
         private void SetupInputChecker()
         {
             _InputChecker = new InputChecker();
-            Action[] playActions = new Action[]
+            var playActions = new Action[]
             {
-                PlayFirst,
-                PlaySecond,
-                PlayThird,
-                PlayFourth,
-                PlayFifth
+                () => PlayTone(0),
+                () => PlayTone(1),
+                () => PlayTone(2),
+                () => PlayTone(3),
+                () => PlayTone(4)
             };
 
-            ButtonName[] buttons = new ButtonName[]
+            var buttons = new ButtonName[]
             {
                 ButtonName.One,
                 ButtonName.Two,
@@ -56,7 +55,7 @@ namespace Vandraren.Instruments
                 ButtonName.Five
             };
 
-            for (int i = 0; i < _Tones.Count; i++)
+            for (var i = 0; i < _Tones.Count; i++)
             {
                 _InputChecker.AddButtonCheck(buttons[i], playActions[i]);
             }
@@ -64,34 +63,9 @@ namespace Vandraren.Instruments
             _InputChecker.AddButtonCheck(ButtonName.RemoveInstrument, StopPlaying);
         }
 
-        private void PlayTone(string pName)
+        private void PlayTone(int pToneIndex)
         {
-            SoundManager.PlaySfx(pName, "Sfx");
-        }
-
-        private void PlayFirst()
-        {
-            PlayTone(_Tones[0]);
-        }
-
-        private void PlaySecond()
-        {
-            PlayTone(_Tones[1]);
-        }
-
-        private void PlayThird()
-        {
-            PlayTone(_Tones[2]);
-        }
-
-        private void PlayFourth()
-        {
-            PlayTone(_Tones[3]);
-        }
-
-        private void PlayFifth()
-        {
-            PlayTone(_Tones[4]);
+            SoundManager.PlaySfx(_Tones[pToneIndex], "Sfx");
         }
 
         private void StopPlaying()

@@ -41,7 +41,7 @@ namespace Vandraren.View
         private void MoveToPlayer()
         {
             _PlayerDistance = _Player.position.x - transform.position.x;
-            CheckNewDirection();
+            SetNewDirection();
 
             if (_NewDir == MoveDirection.Still)
             {
@@ -50,21 +50,15 @@ namespace Vandraren.View
 
             _TargetPosition = new Vector3(_Player.position.x, transform.position.y, transform.position.z);
 
-            if (_NewDir != _CurrentDir)
+            if (_NewDir != _CurrentDir && Mathf.Abs(_PlayerDistance) > _XThreshold)
             {
-                if (Mathf.Abs(_PlayerDistance) > _XThreshold)
-                {
-                    _CurrentDir = _NewDir;
-                    SetPosition();
-                }
+                _CurrentDir = _NewDir;
             }
-            else
-            {
-                SetPosition();
-            }
+
+            SetPosition();
         }
 
-        private void CheckNewDirection()
+        private void SetNewDirection()
         {
             if (_PlayerDistance > 0)
             {

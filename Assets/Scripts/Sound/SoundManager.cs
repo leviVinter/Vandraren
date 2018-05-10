@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using Vandraren.Helpers;
 
 namespace Vandraren.Sound
 {
     public enum SoundType
     {
-        MUSIC,
-        SFX
+        Music,
+        Sfx
     }
 
     public class SoundManager
@@ -43,9 +41,9 @@ namespace Vandraren.Sound
         /// <param name="pMixerGroup"></param>
         public static void PlaySfx(string pName, string pMixerGroup = "")
         {
-            AudioClip clip = GetAudioClip(pName, SoundType.SFX);
+            var clip = GetAudioClip(pName, SoundType.Sfx);
 
-            AudioSource source = _SfxPlayer.Play(clip);
+            var source = _SfxPlayer.Play(clip);
 
             if (!string.IsNullOrEmpty(pMixerGroup))
             {
@@ -60,13 +58,13 @@ namespace Vandraren.Sound
         /// <param name="pMixerGroup"></param>
         public static void PlayMusic(string pName, string pMixerGroup = "")
         {
-            AudioClip clip = GetAudioClip(pName, SoundType.MUSIC);
+            var clip = GetAudioClip(pName, SoundType.Music);
 
-            AudioSource[] sources = _MusicPlayer.PlayMusic(clip);
+            var sources = _MusicPlayer.PlayMusic(clip);
 
             if (!string.IsNullOrEmpty(pMixerGroup))
             {
-                foreach (AudioSource source in sources)
+                foreach (var source in sources)
                 {
                     SetMixerGroup(pMixerGroup, source);
                 }
@@ -86,11 +84,11 @@ namespace Vandraren.Sound
 
             switch (pType)
             {
-                case SoundType.MUSIC:
+                case SoundType.Music:
                     clips = _MusicClips;
                     break;
 
-                case SoundType.SFX:
+                case SoundType.Sfx:
                     clips = _SfxClips;
                     break;
 
@@ -101,8 +99,8 @@ namespace Vandraren.Sound
 
             if (!clips.ContainsKey(pName))
             {
-                string folderPath = ResourcesPaths.SoundFolder(pType);
-                string fullPath = string.Format("{0}{1}", folderPath, pName);
+                var folderPath = ResourcePaths.GetSoundFolder(pType);
+                var fullPath = $"{folderPath}{pName}";
 
                 clip = Resources.Load(fullPath) as AudioClip;
 
@@ -124,7 +122,7 @@ namespace Vandraren.Sound
         /// <param name="pSource"></param>
         private static void SetMixerGroup(string pName, AudioSource pSource)
         {
-            AudioMixerGroup group = _Mixer.GetMixerGroup(pName);
+            var group = _Mixer.GetMixerGroup(pName);
             pSource.outputAudioMixerGroup = group;
         }
     }
