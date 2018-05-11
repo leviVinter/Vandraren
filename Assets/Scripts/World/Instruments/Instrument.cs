@@ -65,6 +65,12 @@ namespace Vandraren.Instruments
 
         private void PlayTone(int pToneIndex)
         {
+            if (_Tones.Count < pToneIndex)
+            {
+                Debug.Log($"Tone index {pToneIndex} doesn't exist.");
+                return;
+            }
+
             SoundManager.PlaySfx(_Tones[pToneIndex], "Sfx");
         }
 

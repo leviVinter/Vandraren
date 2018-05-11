@@ -17,7 +17,7 @@ namespace Vandraren.UI
 
             var canvas = GameObject.FindGameObjectWithTag("MainCanvas");
 
-            var bubble = GameObject.Instantiate(_ChatBubblePrefab, canvas.transform) as ChatBubble;
+            var bubble = Object.Instantiate(_ChatBubblePrefab, canvas.transform) as ChatBubble;
             bubble.Text = pText;
             bubble.Owner = pSpeaker;
             bubble.Position = Camera.main.WorldToScreenPoint(pSpeaker.position);
@@ -29,11 +29,6 @@ namespace Vandraren.UI
         {
             var bubble = ChatBubbles.Find(a => a.Owner = pSpeaker);
             bubble?.Close();
-
-            //if (bubble != null)
-            //{
-            //    bubble.Close();
-            //}
         }
     }
 }
