@@ -50,12 +50,19 @@ namespace Vandraren.View
 
             _TargetPosition = new Vector3(_Player.position.x, transform.position.y, transform.position.z);
 
-            if (_NewDir != _CurrentDir && Mathf.Abs(_PlayerDistance) > _XThreshold)
+            if (_NewDir != _CurrentDir)
             {
-                _CurrentDir = _NewDir;
+                if (Mathf.Abs(_PlayerDistance) > _XThreshold)
+                {
+                    _CurrentDir = _NewDir;
+                    SetPosition();
+                }
+            }
+            else
+            {
+                SetPosition();
             }
 
-            SetPosition();
         }
 
         private void SetNewDirection()
