@@ -72,7 +72,8 @@ namespace Vandraren.World.Characters
         {
             var rigidbody = GetComponent<Rigidbody2D>();
             var layer = gameObject.layer;
-            _Physics = new PhysicsController(rigidbody, layer, 3.0f);
+            var maxSpeed = 2.0f;
+            _Physics = new PhysicsController(rigidbody, layer, maxSpeed);
         }
 
         private void OnMovement(float pAxisValue)

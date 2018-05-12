@@ -4,7 +4,7 @@ namespace Vandraren.World.Background
 {
     public class ScrollBackground : MonoBehaviour
     {
-        private Transform _camera;
+        private Transform _cameraTransform;
         private Transform[] _layers;
         private int _leftIndex;
         private int _rightIndex;
@@ -16,8 +16,8 @@ namespace Vandraren.World.Background
 
         private void Start()
         {
-            _camera = Camera.main.transform;
-            _lastCameraX = _camera.position.x;
+            _cameraTransform = Camera.main.transform;
+            _lastCameraX = _cameraTransform.position.x;
 
             _layers = new Transform[transform.childCount];
 
@@ -32,16 +32,19 @@ namespace Vandraren.World.Background
 
         private void Update()
         {
-            var deltaX = _camera.position.x - _lastCameraX;
-            transform.position += new Vector3(deltaX * ParalaxSpeed, 0, 0);
+            if (ParalaxSpeed != 0)
+            {
+                var deltaX = _cameraTransform.position.x - _lastCameraX;
+                transform.position += new Vector3(deltaX * ParalaxSpeed, 0, 0);
+                _lastCameraX = _cameraTransform.position.x;
+            }
 
-            _lastCameraX = _camera.position.x;
 
-            if (_camera.position.x < (_layers[_leftIndex].transform.position.x + ScrollOffset))
+            if (_cameraTransform.position.x < (_layers[_leftIndex].transform.position.x + ScrollOffset))
             {
                 ScrollLeft();
             }
-            else if (_camera.position.x > (_layers[_rightIndex].transform.position.x - ScrollOffset))
+            else if (_cameraTransform.position.x > (_layers[_rightIndex].transform.position.x - ScrollOffset))
             {
                 ScrollRight();
             }
