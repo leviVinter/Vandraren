@@ -30,7 +30,7 @@ namespace Vandraren.World.Characters
 
         private void Start()
         {
-            Invoke("OpenChatBubble", 2f);
+            //Invoke("OpenChatBubble", 2f);
         }
 
         private void OpenChatBubble()
@@ -72,14 +72,22 @@ namespace Vandraren.World.Characters
         {
             var rigidbody = GetComponent<Rigidbody2D>();
             var layer = gameObject.layer;
-            _Physics = new PhysicsController(rigidbody, layer);
+            _Physics = new PhysicsController(rigidbody, layer, 3.0f);
         }
 
         private void OnMovement(float pAxisValue)
         {
+            var flipSprite = (_SpriteRenderer.flipX ? (pAxisValue > 0.01f) : (pAxisValue < -0.01f));
+
+            if (flipSprite)
+            {
+                _SpriteRenderer.flipX = !_SpriteRenderer.flipX;
+            }
+
             _Physics.ComputeVelocity(pAxisValue);
 
             var isMoving = pAxisValue < -0.01f || pAxisValue > 0.01f;
+
             var animatorIsWalking = _Animator.GetBool("Walking");
 
             if (isMoving)

@@ -21,7 +21,7 @@ namespace Vandraren.World.Physics
         private const float _MinMoveDistance = 0.001f;
         private const float _ShellRadius = 0.01f;
 
-        public PhysicsController(Rigidbody2D pRigidbody, LayerMask pLayer)
+        public PhysicsController(Rigidbody2D pRigidbody, LayerMask pLayer, float pMaxSpeed)
         {
             _Rigidbody = pRigidbody;
             _ContactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(pLayer));
@@ -33,19 +33,13 @@ namespace Vandraren.World.Physics
             _HitBufferList = new List<RaycastHit2D>(16);
             _Velocity = Vector2.zero;
             _GroundNormal = Vector2.zero;
-            _MaxSpeed = 7.0f;
+            _MaxSpeed = pMaxSpeed;
         }
 
         public void ComputeVelocity(float pAxisValue)
         {
             var move = Vector2.zero;
             move.x = pAxisValue;
-
-            //bool flipSprite = (_SpriteRenderer.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
-            //if (flipSprite)
-            //{
-            //    _SpriteRenderer.flipX = !_SpriteRenderer.flipX;
-            //}
 
             _TargetVelocity = move * _MaxSpeed;
         }

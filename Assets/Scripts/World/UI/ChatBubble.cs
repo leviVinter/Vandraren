@@ -53,10 +53,9 @@ namespace Vandraren.UI
 
         private void UpdatePosition()
         {
-            var camera = Camera.main;
-            var owner = _Owner;
-            var rect = _RectTransform;
-            _RectTransform.position = Camera.main.WorldToScreenPoint(_Owner.position) + new Vector3(_OffsetX, _OffsetY, 0);
+            var relativePosition = new Vector3(_OffsetX, _OffsetY, 0);
+
+            Position = Camera.main.WorldToScreenPoint(_Owner.position) + relativePosition;
         }
     }
 }
