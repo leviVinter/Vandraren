@@ -24,6 +24,7 @@ namespace Vandraren.Instruments
 
         public bool IsActive
         {
+            get { return _IsActive; }
             set { _IsActive = value; }
         }
 

@@ -16,6 +16,8 @@ namespace Vandraren.World.Characters
 
         private bool _IsActive { get; set; }
 
+        public bool IsPlaying => _Instrument.IsActive;
+
         private void Awake()
         {
             _SpriteRenderer = GetComponent<SpriteRenderer>();

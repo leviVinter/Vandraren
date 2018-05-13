@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Vandraren.Inputs;
 using Vandraren.UI;
+using Vandraren.World.Characters;
 
 namespace Assets.Scripts.Puzzles
 {
@@ -11,7 +12,7 @@ namespace Assets.Scripts.Puzzles
         private ButtonName[] _ButtonOrder;
         private float _MaximumDistance;
         private bool _IsActive;
-        private Transform _Player;
+        private GameObject _Player;
         private InputChecker _InputChecker;
         private List<ButtonName> _CorrectButtonsPlayed = new List<ButtonName>();
         private SpriteRenderer[] _Boxes;
@@ -31,7 +32,7 @@ namespace Assets.Scripts.Puzzles
             Activate(false);
 
             _MaximumDistance = 5f;
-            _Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+            _Player = GameObject.FindGameObjectWithTag("Player");
 
             SetupInputChecker();
         }
@@ -53,7 +54,9 @@ namespace Assets.Scripts.Puzzles
                 MessageManager.CloseChatBubble(transform);
             }
 
-            if (_IsActive)
+            var playerIsPlaying = _Player.GetComponent<Player>().IsPlaying;
+
+            if (_IsActive && playerIsPlaying)
             {
                 _InputChecker.Check();
             }
