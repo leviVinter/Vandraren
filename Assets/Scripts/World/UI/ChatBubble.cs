@@ -21,16 +21,27 @@ namespace Vandraren.UI
             set
             {
                 _Owner = value;
-                _OffsetY = 100;
-                _OffsetX = 0f;
                 UpdatePosition();
             }
+        }
+
+        public Vector2 Position
+        {
+            set { _RectTransform.position = value; }
         }
 
         private void Awake()
         {
             _Text = GetComponentInChildren<Text>();
             _RectTransform = GetComponent<RectTransform>();
+
+            _OffsetY = 200;
+            _OffsetX = 0f;
+        }
+
+        private void Update()
+        {
+            UpdatePosition();
         }
 
         public void Close()
@@ -38,18 +49,6 @@ namespace Vandraren.UI
             Destroy(gameObject);
         }
 
-        public Vector2 Position
-        {
-            set
-            {
-                _RectTransform.position = value;
-            }
-        }
-
-        private void Update()
-        {
-            UpdatePosition();
-        }
 
         private void UpdatePosition()
         {
